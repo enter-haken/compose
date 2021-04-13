@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  app:
+    image: enterhaken/book:${VERSION:-latest}
+    container_name: book_app
+    restart: always
+    ports:
+      - "${PORT:-4050}:4050"
