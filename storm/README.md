@@ -27,10 +27,10 @@ These files are only needed once.
 
 ## start
 
-You can start [retro.hake.one][1] with
+You can start [storm.hake.one][1] with
 
 ```
 docker-compose up
 ```
 
-[1]: https://retro.hake.one
+[1]: https://storm.hake.one
