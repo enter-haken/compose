@@ -1,5 +1,7 @@
 # storm
 
+This does not yet work.
+
 ## setup
 
 You can create a `.env` file like
