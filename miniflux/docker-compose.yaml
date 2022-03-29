@@ -4,25 +4,31 @@ services:
     image: miniflux/miniflux:2.0.36
     container_name: miniflux
     ports:
-      - "8080:8080"
+      - "5080:8080"
     depends_on:
       - db
     environment:
       - DATABASE_URL=postgres://miniflux:secret@db/miniflux?sslmode=disable
-        #- RUN_MIGRATIONS=1
-        #- CREATE_ADMIN=1
-        #- ADMIN_USERNAME=admin
-        #- ADMIN_PASSWORD=password
+      - RUN_MIGRATIONS=1
+      - CREATE_ADMIN=1
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=password
+      - DEBUG=true
+      - BASE_URL=https://mf.hake.one
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "/usr/bin/miniflux", "-healthcheck", "auto"]
   db:
     image: postgres:14.2
     container_name: miniflux_db
-      # environment:
-      #   - POSTGRES_USER=miniflux
-      #   - POSTGRES_PASSWORD=secret
+    environment:
+      - POSTGRES_USER=miniflux
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "54320:5432"
     volumes:
       - miniflux-db:/var/lib/postgresql/data
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "miniflux"]
       interval: 10s
